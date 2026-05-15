@@ -1,0 +1,33 @@
+const mongoose = require("mongoose");
+
+const registrationSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    event: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+
+// prevent duplicate registration
+registrationSchema.index(
+  { user: 1, event: 1 },
+  { unique: true }
+);
+
+const registerModel = mongoose.model(
+  "Registration",
+  registrationSchema
+);
+
+
+module.exports = registerModel
