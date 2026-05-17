@@ -79,7 +79,9 @@ const EventDetails = () => {
           `/api/event/${id}`
         );
 
-        setEvent(response.data);
+      setTimeout(()=>{
+  setEvent(response.data);
+      },4000)
 
       } catch (error) {
 
