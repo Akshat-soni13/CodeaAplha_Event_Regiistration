@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
+import toast from "react-hot-toast";
 import api from "../service/api";
 
 const EventDetails = () => {
@@ -8,6 +9,27 @@ const EventDetails = () => {
   const { id } = useParams();
 
   const [event, setEvent] = useState(null);
+  const handleRegister = async (id) => {
+
+  try {
+
+    const response = await api.post(
+      `/api/register/${id}`
+    );
+
+    toast.success(
+      response.data.message
+    );
+
+  } catch (error) {
+
+    toast.error(
+      error.response?.data?.message ||
+      "Something went wrong"
+    );
+
+  }
+};
 
   useEffect(() => {
 
@@ -135,11 +157,11 @@ const EventDetails = () => {
                   Organizer
                 </p>
 
-                <p className="font-semibold">
+                <pre className="font-semibold">
                   {event.createdBy?.name}
                   
                   <p className="text-[12px]">{event.createdBy?.email}</p>
-                </p>
+                </pre>
 
               </div>
 
@@ -150,6 +172,7 @@ const EventDetails = () => {
 
               <button
                 className="bg-gradient-to-r from-purple-500 to-cyan-500 px-8 py-4 rounded-2xl font-semibold hover:scale-105 transition duration-300 shadow-xl"
+                  onClick={() => handleRegister(event._id)}
               >
                 Register Now
               </button>

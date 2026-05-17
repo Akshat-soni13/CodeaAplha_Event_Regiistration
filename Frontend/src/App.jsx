@@ -7,6 +7,8 @@ import Home from "../src/pages/Home"
 import Login from "../src/pages/Login"
 import Register from "./pages/Register"
 import EventDetails from "./pages/EventDetails";
+import MyRegistrations from "./pages/Myregistration";
+import CreateEvent from "./pages/EventCreate";
 const App = () => {
   return (
    <BrowserRouter>
@@ -30,19 +32,20 @@ const App = () => {
 
         <Route
           path="/event/:id"
-          element={<EventDetails />}
-        />
-        {/* <Route
+          element={<EventDetails />}></Route>
+
+           <Route
+          path="/my-registrations"
+          element={<MyRegistrations />}></Route>
+      
+         <Route
           path="/create-event"
           element={<CreateEvent />}
-        />
+        /> 
 
        
 
-        <Route
-          path="/my-registrations"
-          element={<MyRegistrations />}
-        /> */}
+       
 
       </Routes>
 

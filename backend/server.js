@@ -4,7 +4,6 @@ const connectTodb = require("./src/config/databse")
 
 
 
-
 connectTodb()
 
 

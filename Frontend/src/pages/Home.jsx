@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-
-import api from "../service/api";
+import { Link } from "react-router-dom";
+import api from "../service/api"
+import Navbar from "../components/Navbar";
 
 const Home = () => {
 
@@ -30,8 +31,10 @@ const Home = () => {
   }, []);
 
   return (
-
-    <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto">
+    
+    <div>
+      <Navbar></Navbar>
+      <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto">
 
       {/* Hero */}
       <div className="text-center mb-14">
@@ -89,12 +92,14 @@ const Home = () => {
                 </p>
 
               </div>
-
+                  <Link to={`/event/${event._id}`}>
+                  
               <button
                 className="mt-6 w-full bg-gradient-to-r from-purple-500 to-cyan-500 py-3 rounded-xl text-white font-semibold hover:scale-[1.02] transition duration-300"
+                
               >
                 View Details
-              </button>
+              </button></Link>
 
             </div>
 
@@ -105,6 +110,8 @@ const Home = () => {
       </div>
 
     </div>
+    </div>
+    
   );
 };
 
