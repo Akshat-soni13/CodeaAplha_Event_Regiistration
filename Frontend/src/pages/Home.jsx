@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../service/api"
+
+import api from "../service/api";
+
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Home = () => {
 
@@ -14,7 +17,7 @@ const Home = () => {
       try {
 
         const response = await api.get(
-          "/api/event/"
+          "/api/event"
         );
 
         setEvents(response.data);
@@ -31,87 +34,144 @@ const Home = () => {
   }, []);
 
   return (
-    
-    <div>
-      <Navbar></Navbar>
-      <div className="min-h-screen px-6 py-10 max-w-7xl mx-auto">
 
-      {/* Hero */}
-      <div className="text-center mb-14">
+    <div className="relative overflow-hidden min-h-screen bg-slate-950">
 
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-          Discover Amazing Events
-        </h1>
+      {/* Navbar */}
+      <Navbar />
 
-        <p className="text-gray-400 text-lg">
-          Join tech, music, startup and
-          community events near you.
-        </p>
+      {/* Background Glow */}
+      <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-purple-500/20 blur-[150px] rounded-full -z-10" />
 
-      </div>
+      <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/20 blur-[150px] rounded-full -z-10" />
 
-      {/* Events Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Main Container */}
+      <div className="px-6 py-10 max-w-7xl mx-auto">
 
-        {events.map((event) => (
+        {/* Hero Section */}
+        <div className="text-center mb-24 pt-10">
 
-          <div
-            key={event._id}
-            className="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl overflow-hidden shadow-xl hover:scale-[1.02] transition duration-300"
-          >
+          <p className="text-cyan-400 uppercase tracking-[8px] mb-6 text-sm">
 
-            {/* Image */}
-            <img
-              src={event.image}
-              alt={event.title}
-              className="w-full h-52 object-cover"
-            />
+            Discover The Best Events
 
-            {/* Content */}
-            <div className="p-6">
+          </p>
 
-              <h2 className="text-2xl font-bold text-white mb-2">
-                {event.title}
-              </h2>
+          <h1 className="text-6xl md:text-8xl font-black leading-tight mb-8">
 
-              <p className="text-gray-400 mb-4 line-clamp-2">
-                {event.description}
-              </p>
+            <span className="bg-gradient-to-r from-white via-purple-300 to-cyan-300 bg-clip-text text-transparent">
 
-              <div className="space-y-2 text-gray-300 text-sm">
+              Experience
 
-                <p>
-                  📍 {event.location}
-                </p>
+            </span>
 
-                <p>
-                  📅{" "}
-                  {new Date(
-                    event.date
-                  ).toLocaleDateString()}
-                </p>
+            <br />
+
+            <span className="text-white">
+              The Future Of Events
+            </span>
+
+          </h1>
+
+          <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-8">
+
+            Explore concerts, tech conferences,
+            gaming tournaments, startup meetups
+            and unforgettable live experiences.
+
+          </p>
+
+        </div>
+
+        {/* Events Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+          {events.map((event) => (
+
+            <Link
+              to={`/event/${event._id}`}
+              key={event._id}
+              className="group bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl hover:-translate-y-3 hover:border-cyan-400/40 transition duration-500"
+            >
+
+              {/* Image Wrapper */}
+              <div className="relative overflow-hidden">
+
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-60 object-cover group-hover:scale-110 transition duration-700"
+                />
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
 
               </div>
-                  <Link to={`/event/${event._id}`}>
-                  
-              <button
-                className="mt-6 w-full bg-gradient-to-r from-purple-500 to-cyan-500 py-3 rounded-xl text-white font-semibold hover:scale-[1.02] transition duration-300"
-                
-              >
-                View Details
-              </button></Link>
 
-            </div>
+              {/* Content */}
+              <div className="p-7">
 
-          </div>
+                <h2 className="text-3xl font-bold text-white mb-3">
 
-        ))}
+                  {event.title}
+
+                </h2>
+
+                <p className="text-gray-400 mb-5 line-clamp-2 leading-7">
+
+                  {event.description}
+
+                </p>
+
+                {/* Info */}
+                <div className="space-y-3 text-gray-300">
+
+                  <p className="flex items-center gap-2">
+
+                    <span className="text-cyan-400">
+                      📍
+                    </span>
+
+                    {event.location}
+
+                  </p>
+
+                  <p className="flex items-center gap-2">
+
+                    <span className="text-pink-400">
+                      📅
+                    </span>
+
+                    {new Date(
+                      event.date
+                    ).toLocaleDateString()}
+
+                  </p>
+
+                </div>
+
+                {/* Button */}
+                <button
+                  className="mt-7 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 py-3 rounded-2xl text-white font-semibold hover:scale-[1.03] transition duration-300 shadow-2xl"
+                >
+
+                  Explore Event
+
+                </button>
+
+              </div>
+
+            </Link>
+
+          ))}
+
+        </div>
 
       </div>
 
+          <Footer></Footer>
+
     </div>
-    </div>
-    
   );
 };
 
