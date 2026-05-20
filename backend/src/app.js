@@ -5,8 +5,12 @@ const cors = require("cors");
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
+const allowedOrigin = process.env.Front_Url 
+  ? process.env.Front_Url.replace(/\/$/, "") 
+  : "http://localhost:5173";
+
 app.use(cors({
-  origin: process.env.Front_Url||"http://localhost:5173",
+  origin: allowedOrigin,
   credentials: true,
 }));
 
